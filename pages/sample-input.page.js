@@ -3,8 +3,7 @@ const { expect } = require('@playwright/test');
 exports.TextInputPage = class TextInputPage {
    constructor(page) {
       this.page = page
-      this.setButtonTextField = page.getByPlaceholder('MyButton')
-      this.currentTextButton = page.getByRole('button', { name: 'Button That Should Change it\'s Name Based on Input Value' })
+      this.inputTextField = page.locator('#newButtonName')
       this.newTextButton = page.locator('#updatingButton')
    }
 
@@ -13,7 +12,7 @@ exports.TextInputPage = class TextInputPage {
    }
 
    async fillTextInputField(newbuttontext) {
-      await this.setButtonTextField.fill(newbuttontext)
+      await this.inputTextField.fill(newbuttontext)
    }
 
    async clickNewTextButton() {
