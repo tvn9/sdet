@@ -11,8 +11,8 @@ exports.TextInputPage = class TextInputPage {
       await this.page.goto('http://uitestingplayground.com/textinput')
    }
 
-   async fillTextInputField(newbuttontext) {
-      await this.inputTextField.fill(newbuttontext)
+   async fillTextInputField(text) {
+      await this.inputTextField.fill(text)
    }
 
    async clickNewTextButton() {
