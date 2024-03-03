@@ -22,46 +22,49 @@ import { test, expect } from '@playwright/test';
 
 const { SampleAppPage } = require('../pages/sample-app.page');
 
-test('Log in success', async ({ page }) => {
-	const sampleAppPage = new SampleAppPage(page)
+test.describe.parallel('suite', () => {
 
-	await sampleAppPage.navigateToSampleApp()
-	await sampleAppPage.fillUsernameField("Thanh")
-	await sampleAppPage.fillPasswordField('pwd')
-	await sampleAppPage.clickLoginButton()
-	await sampleAppPage.expectedLoginTextToBe("Welcome, Thanh!")
-});
+	test('Log in success', async ({ page }) => {
+		const sampleAppPage = new SampleAppPage(page)
 
-test('Wrong password test', async ({ page }) => {
-	const sampleAppPage = new SampleAppPage(page)
+		await sampleAppPage.navigateToSampleApp()
+		await sampleAppPage.fillUsernameField("Thanh")
+		await sampleAppPage.fillPasswordField('pwd')
+		await sampleAppPage.clickLoginButton()
+		await sampleAppPage.expectedLoginTextToBe("Welcome, Thanh!")
+	});
 
-	await sampleAppPage.navigateToSampleApp()
-	await sampleAppPage.fillUsernameField("Thanh")
-	await sampleAppPage.fillPasswordField('wrong')
-	await sampleAppPage.clickLoginButton()
-	await sampleAppPage.expectedWrongPasswordTextToBe("Invalid username/password")
+	test('Wrong password test', async ({ page }) => {
+		const sampleAppPage = new SampleAppPage(page)
 
-});
+		await sampleAppPage.navigateToSampleApp()
+		await sampleAppPage.fillUsernameField("Thanh")
+		await sampleAppPage.fillPasswordField('wrong')
+		await sampleAppPage.clickLoginButton()
+		await sampleAppPage.expectedWrongPasswordTextToBe("Invalid username/password")
 
-test('No usename test', async ({ page }) => {
-	const sampleAppPage = new SampleAppPage(page)
+	});
 
-	await sampleAppPage.navigateToSampleApp()
-	await sampleAppPage.fillUsernameField("")
-	await sampleAppPage.fillPasswordField('pwd')
-	await sampleAppPage.clickLoginButton()
-	await sampleAppPage.expectedNoUserNameTextToBe("Invalid username/password")
-});
+	test('No usename test', async ({ page }) => {
+		const sampleAppPage = new SampleAppPage(page)
 
-test('Log out test', async ({ page }) => {
-	const sampleAppPage = new SampleAppPage(page)
+		await sampleAppPage.navigateToSampleApp()
+		await sampleAppPage.fillUsernameField("")
+		await sampleAppPage.fillPasswordField('pwd')
+		await sampleAppPage.clickLoginButton()
+		await sampleAppPage.expectedNoUserNameTextToBe("Invalid username/password")
+	});
 
-	await sampleAppPage.navigateToSampleApp()
-	await sampleAppPage.fillUsernameField("Thanh")
-	await sampleAppPage.fillPasswordField('pwd')
-	await sampleAppPage.clickLoginButton()
-	await sampleAppPage.expectedLoginTextToBe("Welcome, Thanh!")
-	await sampleAppPage.clickLogoutButton()
-	await sampleAppPage.expectedLogoutTextToBe("User logged out.")
+	test('Log out test', async ({ page }) => {
+		const sampleAppPage = new SampleAppPage(page)
 
+		await sampleAppPage.navigateToSampleApp()
+		await sampleAppPage.fillUsernameField("Thanh")
+		await sampleAppPage.fillPasswordField('pwd')
+		await sampleAppPage.clickLoginButton()
+		await sampleAppPage.expectedLoginTextToBe("Welcome, Thanh!")
+		await sampleAppPage.clickLogoutButton()
+		await sampleAppPage.expectedLogoutTextToBe("User logged out.")
+
+	});
 });
